@@ -1,6 +1,4 @@
-"""An elsapy module that contains decorators and other utilities to make the
-project more maintainable.
-"""
+"""An elsapy module that contains decorators and other utilities."""
 
 import pandas as pd
 
@@ -10,8 +8,7 @@ logger = log_util.get_logger(__name__)
 
 
 def recast_df(df):
-    """Recasts a data frame so that it has proper date fields and a more
-    useful data structure for URLs"""
+    """Recasts a data frame so that it has proper date fields."""
     int_resp_fields = [
         "document-count",
         "citedby-count",
@@ -28,9 +25,7 @@ def recast_df(df):
             link_type_key = "@rel"
         else:
             link_type_key = "@ref"
-        df["link"] = df.link.apply(
-            lambda x: {e[link_type_key]: e["@href"] for e in x}
-        )
+        df["link"] = df.link.apply(lambda x: {e[link_type_key]: e["@href"] for e in x})
     # Recast fields that contain integers from strings to the integer type
     for int_field in int_resp_fields:
         if int_field in df.columns:

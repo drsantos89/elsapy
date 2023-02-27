@@ -4,6 +4,13 @@
 line-length = 88
 preview = true
 
+[tool.docformatter]
+recursive = true
+wrap-summaries = 88
+wrap-descriptions = 88
+syntax = "numpy"
+black = true
+
 [tool.isort]
 profile = "black"
 line_length = 88
