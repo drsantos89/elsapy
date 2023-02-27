@@ -32,4 +32,4 @@ jobs:
         pip install pytest pytest-cov
         pip install -e .
     - name: Run pytest
-      run: pytest tests_elsapy.py
+      run: pytest test_elsapy.py
