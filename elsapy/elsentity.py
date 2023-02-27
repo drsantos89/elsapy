@@ -4,11 +4,16 @@
     * https://dev.elsevier.com
     * https://api.elsevier.com"""
 
-import requests, json, urllib
+import json
+import urllib
 from abc import ABCMeta, abstractmethod
+
+import requests
+
 from . import log_util
 
 logger = log_util.get_logger(__name__)
+
 
 class ElsEntity(metaclass=ABCMeta):
     """An abstract class representing an entity in Elsevier's data model"""
@@ -31,17 +36,17 @@ class ElsEntity(metaclass=ABCMeta):
     def uri(self, uri):
         """Set the URI of the entity instance"""
         self._uri = uri
-    
+
     @property
     def id(self):
         """Get the dc:identifier of the entity instance"""
         return self.data["coredata"]["dc:identifier"]
-    
+
     @property
     def int_id(self):
         """Get the (non-URI, numbers only) ID of the entity instance"""
         dc_id = self.data["coredata"]["dc:identifier"]
-        return dc_id[dc_id.find(':') + 1:]
+        return dc_id[dc_id.find(":") + 1 :]
 
     @property
     def data(self):
@@ -62,11 +67,13 @@ class ElsEntity(metaclass=ABCMeta):
     @abstractmethod
     def read(self, payloadType, elsClient):
         """Fetches the latest data for this entity from api.elsevier.com.
-            Returns True if successful; else, False."""
+        Returns True if successful; else, False."""
         if elsClient:
-            self._client = elsClient;
+            self._client = elsClient
         elif not self.client:
-            raise ValueError('''Entity object not currently bound to elsClient instance. Call .read() with elsClient argument or set .client attribute.''')
+            raise ValueError(
+                """Entity object not currently bound to elsClient instance. Call .read() with elsClient argument or set .client attribute."""
+            )
         try:
             api_response = self.client.exec_request(self.uri)
             if isinstance(api_response[payloadType], list):
@@ -83,15 +90,17 @@ class ElsEntity(metaclass=ABCMeta):
 
     def write(self):
         """If data exists for the entity, writes it to disk as a .JSON file with
-             the url-encoded URI as the filename and returns True. Else, returns
-             False."""
-        if (self.data):
-            dataPath = self.client.local_dir / (urllib.parse.quote_plus(self.uri)+'.json')
-            with dataPath.open(mode='w') as dump_file:
+        the url-encoded URI as the filename and returns True. Else, returns
+        False."""
+        if self.data:
+            dataPath = self.client.local_dir / (
+                urllib.parse.quote_plus(self.uri) + ".json"
+            )
+            with dataPath.open(mode="w") as dump_file:
                 json.dump(self.data, dump_file)
                 dump_file.close()
-            logger.info('Wrote ' + self.uri + ' to file')
+            logger.info("Wrote " + self.uri + " to file")
             return True
         else:
-            logger.warning('No data to write for ' + self.uri)
+            logger.warning("No data to write for " + self.uri)
             return False

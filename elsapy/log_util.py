@@ -4,7 +4,9 @@
     * https://dev.elsevier.com
     * https://api.elsevier.com"""
 
-import time, logging
+import logging
+import time
+
 try:
     from pathlib import Path
 except ImportError:
@@ -12,26 +14,29 @@ except ImportError:
 
 ## Following adapted from https://docs.python.org/3/howto/logging-cookbook.html
 
+
 def get_logger(name):
     # TODO: add option to disable logging, without stripping logger out of all modules
     #   - e.g. by simply not writing to file if logging is disabled. See
     #   https://github.com/ElsevierDev/elsapy/issues/26
-    
+
     # create logger with module name
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
     # create log path, if not already there
-    logPath = Path('logs')
+    logPath = Path("logs")
     if not logPath.exists():
         logPath.mkdir()
     # create file handler which logs even debug messages
-    fh = logging.FileHandler('logs/elsapy-%s.log' % time.strftime('%Y%m%d'))
+    fh = logging.FileHandler("logs/elsapy-%s.log" % time.strftime("%Y%m%d"))
     fh.setLevel(logging.DEBUG)
     # create console handler with a higher log level
     ch = logging.StreamHandler()
     ch.setLevel(logging.ERROR)
     # create formatter and add it to the handlers
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     fh.setFormatter(formatter)
     ch.setFormatter(formatter)
     # add the handlers to the logger

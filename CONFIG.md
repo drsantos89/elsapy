@@ -9,7 +9,7 @@ If you are using (or adapting) exampleProg.py, do this:
 	    "insttoken": "ENTER_INSTTOKEN_HERE_IF_YOU_HAVE_ONE_ELSE_DELETE"
     }
     ```
-    
+
 - Paste your APIkey (obtained from http://dev.elsevier.com) in the right place
 - If you don't have a valid insttoken (which you would have received from Elsevier support staff), delete the placeholder text. If you enter a dummy value, your API requests will fail.
 
