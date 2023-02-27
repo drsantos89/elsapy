@@ -100,7 +100,7 @@ class ElsSearch:
         els_client: ElsClient = None,
         get_all: bool = False,
         use_cursor: bool = False,
-        view=None,
+        view = None,
         count: int = 25,
     ) -> None:
         """Execute the search.
