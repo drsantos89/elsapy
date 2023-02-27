@@ -122,7 +122,7 @@ class ElsClient:
         }
         if self.inst_token:
             headers["X-ELS-Insttoken"] = self.inst_token
-        logger.info("Sending GET request to " + URL)
+        logger.debug("Sending GET request to " + URL)
         r = requests.get(URL, headers=headers)
         self.__ts_last_req = time.time()
         self._status_code = r.status_code
