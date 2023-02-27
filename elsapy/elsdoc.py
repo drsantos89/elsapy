@@ -1,8 +1,9 @@
-"""The document module of elsapy.
-    Additional resources:
-    * https://github.com/ElsevierDev/elsapy
-    * https://dev.elsevier.com
-    * https://api.elsevier.com"""
+"""The document module of elsapy. Additional resources:
+
+* https://github.com/ElsevierDev/elsapy
+* https://dev.elsevier.com
+* https://api.elsevier.com
+"""
 
 from . import log_util
 from .elsentity import ElsEntity
@@ -11,7 +12,10 @@ logger = log_util.get_logger(__name__)
 
 
 class FullDoc(ElsEntity):
-    """A document in ScienceDirect. Initialize with PII or DOI."""
+    """A document in ScienceDirect.
+
+    Initialize with PII or DOI.
+    """
 
     # static variables
     __payload_type = "full-text-retrieval-response"
@@ -19,12 +23,12 @@ class FullDoc(ElsEntity):
 
     @property
     def title(self):
-        """Gets the document's title"""
+        """Gets the document's title."""
         return self.data["coredata"]["dc:title"]
 
     @property
     def uri(self):
-        """Gets the document's uri"""
+        """Gets the document's uri."""
         return self._uri
 
     # constructors
@@ -44,7 +48,9 @@ class FullDoc(ElsEntity):
     # modifier functions
     def read(self, els_client=None):
         """Reads the JSON representation of the document from ELSAPI.
-        Returns True if successful; else, False."""
+
+        Returns True if successful; else, False.
+        """
         if super().read(self.__payload_type, els_client):
             return True
         else:
@@ -52,7 +58,10 @@ class FullDoc(ElsEntity):
 
 
 class AbsDoc(ElsEntity):
-    """A document in Scopus. Initialize with URI or Scopus ID."""
+    """A document in Scopus.
+
+    Initialize with URI or Scopus ID.
+    """
 
     # static variables
     __payload_type = "abstracts-retrieval-response"
@@ -60,12 +69,12 @@ class AbsDoc(ElsEntity):
 
     @property
     def title(self):
-        """Gets the document's title"""
+        """Gets the document's title."""
         return self.data["coredata"]["dc:title"]
 
     @property
     def uri(self):
-        """Gets the document's uri"""
+        """Gets the document's uri."""
         return self._uri
 
     # constructors
@@ -83,7 +92,9 @@ class AbsDoc(ElsEntity):
     # modifier functions
     def read(self, els_client=None):
         """Reads the JSON representation of the document from ELSAPI.
-        Returns True if successful; else, False."""
+
+        Returns True if successful; else, False.
+        """
         if super().read(self.__payload_type, els_client):
             return True
         else:

@@ -1,8 +1,10 @@
 """A Python module that provides the API client component for the elsapy package.
-    Additional resources:
-    * https://github.com/ElsevierDev/elsapy
-    * https://dev.elsevier.com
-    * https://api.elsevier.com"""
+Additional resources:
+
+* https://github.com/ElsevierDev/elsapy
+* https://dev.elsevier.com
+* https://api.elsevier.com
+"""
 
 
 import json
@@ -22,7 +24,7 @@ logger = log_util.get_logger(__name__)
 
 
 class ElsClient:
-    """A class that implements a Python interface to api.elsevier.com"""
+    """A class that implements a Python interface to api.elsevier.com."""
 
     # class variables
     __url_base = "https://api.elsevier.com/"  ## Base URL for later use
@@ -49,32 +51,38 @@ class ElsClient:
     # properties
     @property
     def api_key(self):
-        """Get the apiKey for the client instance"""
+        """Get the apiKey for the client instance."""
         return self._api_key
 
     @api_key.setter
     def api_key(self, api_key):
-        """Set the apiKey for the client instance"""
+        """Set the apiKey for the client instance."""
         self._api_key = api_key
 
     @property
     def inst_token(self):
-        """Get the instToken for the client instance"""
+        """Get the instToken for the client instance."""
         return self._inst_token
 
     @inst_token.setter
     def inst_token(self, inst_token):
-        """Set the instToken for the client instance"""
+        """Set the instToken for the client instance."""
         self._inst_token = inst_token
 
     @property
     def num_res(self):
-        """Gets the max. number of results to be used by the client instance"""
+        """Gets the max.
+
+        number of results to be used by the client instance
+        """
         return self._num_res
 
     @num_res.setter
     def num_res(self, numRes):
-        """Sets the max. number of results to be used by the client instance"""
+        """Sets the max.
+
+        number of results to be used by the client instance
+        """
         self._num_res = numRes
 
     @property
@@ -94,7 +102,7 @@ class ElsClient:
 
     # access functions
     def getBaseURL(self):
-        """Returns the ELSAPI base URL currently configured for the client"""
+        """Returns the ELSAPI base URL currently configured for the client."""
         return self.__url_base
 
     # request/response execution functions

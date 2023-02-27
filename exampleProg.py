@@ -1,4 +1,4 @@
-"""An example program that uses the elsapy module"""
+"""An example program that uses the elsapy module."""
 
 import json
 

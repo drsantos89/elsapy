@@ -1,4 +1,4 @@
-"""Test cases for elsapy"""
+"""Test cases for elsapy."""
 
 ## TODO:
 ## - break down in modules (test suites) for each class to allow faster unit-testing
@@ -32,31 +32,32 @@ else:
 
 
 class util:
-    """Contains tests common to test cases from multiple classes"""
+    """Contains tests common to test cases from multiple classes."""
 
     def file_exist_with_id(id):
-        """Test case: exactly one local file exist with given ID in the filename"""
+        """Test case: exactly one local file exist with given ID in the filename."""
         if len(list(test_path.glob("*" + id + "*"))) == 1:
             return True
 
 
 class TestElsClient:
-    """Test general client functionality"""
+    """Test general client functionality."""
 
     def test_init_apikey_(self):
-        """Test case: APIkey and token are set correctly during initialization"""
+        """Test case: APIkey and token are set correctly during initialization."""
         my_client = ElsClient(config["apikey"])
         assert my_client.api_key == config["apikey"]
         assert my_client.inst_token == None
 
     def test_init_apikey_insttoken(self):
-        """Test case: APIkey and insttoken are set correctly during initialization"""
+        """Test case: APIkey and insttoken are set correctly during initialization."""
         my_client = ElsClient(config["apikey"], inst_token=config["insttoken"])
         assert my_client.api_key == config["apikey"]
         assert my_client.inst_token == config["insttoken"]
 
     def test_init_apikey_insttoken_path(self):
-        """Test case: APIkey, insttoken and local path are set correctly during initialization"""
+        """Test case: APIkey, insttoken and local path are set correctly during
+        initialization."""
         loc_dir = "\\TEMP"
         my_client = ElsClient(
             config["apikey"], inst_token=config["insttoken"], local_dir=loc_dir
@@ -66,7 +67,7 @@ class TestElsClient:
         assert str(my_client.local_dir) == loc_dir
 
     def test_set_apikey_insttoken(self):
-        """Test case: APIkey and insttoken are set correctly using setters"""
+        """Test case: APIkey and insttoken are set correctly using setters."""
         my_client = ElsClient("dummy")
         my_client.api_key = config["apikey"]
         my_client.inst_token = config["insttoken"]
@@ -75,7 +76,7 @@ class TestElsClient:
 
 
 class TestElsAuthor:
-    """Test author object functionality"""
+    """Test author object functionality."""
 
     ## Test data
     auth_uri = "https://api.elsevier.com/content/author/author_id/55070335500"
@@ -84,17 +85,19 @@ class TestElsAuthor:
 
     ## Test initialization
     def test_init_uri(self):
-        """Test case: uri is set correctly during initialization with uri"""
+        """Test case: uri is set correctly during initialization with uri."""
         myAuth = ElsAuthor(uri=self.auth_uri)
         assert myAuth.uri == self.auth_uri
 
     def test_init_auth_id_int(self):
-        """Test case: uri is set correctly during initialization with author id as integer"""
+        """Test case: uri is set correctly during initialization with author id as
+        integer."""
         myAuth = ElsAuthor(author_id=self.auth_id_int)
         assert myAuth.uri == self.auth_uri
 
     def test_init_auth_id_str(self):
-        """Test case: uri is set correctly during initialization with author id as string"""
+        """Test case: uri is set correctly during initialization with author id as
+        string."""
         myAuth = ElsAuthor(author_id=self.auth_id_str)
         assert myAuth.uri == self.auth_uri
 
@@ -106,23 +109,23 @@ class TestElsAuthor:
     myAuth = ElsAuthor(uri=auth_uri)
 
     def test_read_good_bad_client(self):
-        """Test case: using a well-configured client leads to successful read
-        and using a badly-configured client does not."""
+        """Test case: using a well-configured client leads to successful read and using
+        a badly-configured client does not."""
         assert self.myAuth.read(self.bad_client) == False
         assert self.myAuth.read(self.good_client) == True
 
     def test_json_to_dict(self):
-        """Test case: the JSON read by the author object from the API is parsed
-        into a Python dictionary"""
+        """Test case: the JSON read by the author object from the API is parsed into a
+        Python dictionary."""
         assert type(self.myAuth.data) == dict
 
     def test_name_getter(self):
-        """Test case: the full name attribute is returned as a non-empty string"""
+        """Test case: the full name attribute is returned as a non-empty string."""
         assert type(self.myAuth.full_name) == str and self.myAuth.full_name != ""
 
     def test_write(self):
-        """Test case: the author object's data is written to a file with the author
-        ID in the filename"""
+        """Test case: the author object's data is written to a file with the author ID
+        in the filename."""
         self.myAuth.write()
         assert util.file_exist_with_id(
             self.myAuth.data["coredata"]["dc:identifier"].split(":")[1]
@@ -155,7 +158,7 @@ class TestElsAuthor:
 
 
 class TestElsAffil:
-    """Test affiliation functionality"""
+    """Test affiliation functionality."""
 
     ## Test data
     aff_uri = "https://api.elsevier.com/content/affiliation/affiliation_id/60101411"
@@ -164,17 +167,19 @@ class TestElsAffil:
 
     ## Test initialization
     def test_init_uri(self):
-        """Test case: uri is set correctly during initialization with uri"""
+        """Test case: uri is set correctly during initialization with uri."""
         myAff = ElsAffil(uri=self.aff_uri)
         assert myAff.uri == self.aff_uri
 
     def test_init_aff_id_int(self):
-        """Test case: uri is set correctly during initialization with affiliation id as integer"""
+        """Test case: uri is set correctly during initialization with affiliation id as
+        integer."""
         myAff = ElsAffil(affil_id=self.aff_id_int)
         assert myAff.uri == self.aff_uri
 
     def test_init_aff_id_str(self):
-        """Test case: uri is set correctly during initialization with affiliation id as string"""
+        """Test case: uri is set correctly during initialization with affiliation id as
+        string."""
         myAff = ElsAffil(affil_id=self.aff_id_str)
         assert myAff.uri == self.aff_uri
 
@@ -186,23 +191,23 @@ class TestElsAffil:
     myAff = ElsAffil(uri=aff_uri)
 
     def test_read_good_bad_client(self):
-        """Test case: using a well-configured client leads to successful read
-        and using a badly-configured client does not."""
+        """Test case: using a well-configured client leads to successful read and using
+        a badly-configured client does not."""
         assert self.myAff.read(self.bad_client) == False
         assert self.myAff.read(self.good_client) == True
 
     def test_json_to_dict(self):
-        """Test case: the JSON read by the author object from the API is parsed
-        into a Python dictionary"""
+        """Test case: the JSON read by the author object from the API is parsed into a
+        Python dictionary."""
         assert type(self.myAff.data) == dict
 
     def test_name_getter(self):
-        """Test case: the name attribute is returned as a non-empty string"""
+        """Test case: the name attribute is returned as a non-empty string."""
         assert type(self.myAff.name) == str and self.myAff.name != ""
 
     def test_write(self):
-        """Test case: the author object's data is written to a file with the author
-        ID in the filename"""
+        """Test case: the author object's data is written to a file with the author ID
+        in the filename."""
         self.myAff.write()
         assert util.file_exist_with_id(
             self.myAff.data["coredata"]["dc:identifier"].split(":")[1]
@@ -216,7 +221,7 @@ class TestElsAffil:
 
 
 class TestAbsDoc:
-    """Test Scopus document functionality"""
+    """Test Scopus document functionality."""
 
     ## Test data
     abs_uri = "https://api.elsevier.com/content/abstract/scopus_id/84872135457"
@@ -225,17 +230,19 @@ class TestAbsDoc:
 
     ## Test initialization
     def test_init_uri(self):
-        """Test case: uri is set correctly during initialization with uri"""
+        """Test case: uri is set correctly during initialization with uri."""
         myAbsDoc = AbsDoc(uri=self.abs_uri)
         assert myAbsDoc.uri == self.abs_uri
 
     def test_init_scp_id_int(self):
-        """Test case: uri is set correctly during initialization with Scopus id as integer"""
+        """Test case: uri is set correctly during initialization with Scopus id as
+        integer."""
         myAbsDoc = AbsDoc(scp_id=self.scp_id_int)
         assert myAbsDoc.uri == self.abs_uri
 
     def test_init_scp_id_str(self):
-        """Test case: uri is set correctly during initialization with Scopus id as string"""
+        """Test case: uri is set correctly during initialization with Scopus id as
+        string."""
         myAbsDoc = AbsDoc(scp_id=self.scp_id_str)
         assert myAbsDoc.uri == self.abs_uri
 
@@ -247,23 +254,23 @@ class TestAbsDoc:
     myAbsDoc = AbsDoc(uri=abs_uri)
 
     def test_read_good_bad_client(self):
-        """Test case: using a well-configured client leads to successful read
-        and using a badly-configured client does not."""
+        """Test case: using a well-configured client leads to successful read and using
+        a badly-configured client does not."""
         assert self.myAbsDoc.read(self.bad_client) == False
         assert self.myAbsDoc.read(self.good_client) == True
 
     def test_json_to_dict(self):
-        """Test case: the JSON read by the abstract document object from the
-        API is parsed into a Python dictionary"""
+        """Test case: the JSON read by the abstract document object from the API is
+        parsed into a Python dictionary."""
         assert type(self.myAbsDoc.data) == dict
 
     def test_title_getter(self):
-        """Test case: the title attribute is returned as a non-empty string"""
+        """Test case: the title attribute is returned as a non-empty string."""
         assert type(self.myAbsDoc.title) == str and self.myAbsDoc.title != ""
 
     def test_write(self):
-        """Test case: the abstract document object's data is written to a file with the Scopus
-        ID in the filename"""
+        """Test case: the abstract document object's data is written to a file with the
+        Scopus ID in the filename."""
         self.myAbsDoc.write()
         assert util.file_exist_with_id(
             self.myAbsDoc.data["coredata"]["dc:identifier"].split(":")[1]
@@ -271,7 +278,7 @@ class TestAbsDoc:
 
 
 class TestFullDoc:
-    """Test ScienceDirect article functionality"""
+    """Test ScienceDirect article functionality."""
 
     ## Test data
     full_pii_uri = "https://api.elsevier.com/content/article/pii/S1674927814000082"
@@ -283,17 +290,18 @@ class TestFullDoc:
 
     ## Test initialization
     def test_init_uri(self):
-        """Test case: uri is set correctly during initialization with uri"""
+        """Test case: uri is set correctly during initialization with uri."""
         myFullDoc = FullDoc(uri=self.full_pii_uri)
         assert myFullDoc.uri == self.full_pii_uri
 
     def test_init_sd_pii(self):
-        """Test case: uri is set correctly during initialization with ScienceDirect PII"""
+        """Test case: uri is set correctly during initialization with ScienceDirect
+        PII."""
         myFullDoc = FullDoc(sd_pii=self.sd_pii)
         assert myFullDoc.uri == self.full_pii_uri
 
     def test_init_doi(self):
-        """Test case: uri is set correctly during initialization with DOI"""
+        """Test case: uri is set correctly during initialization with DOI."""
         myFullDoc = FullDoc(doi=self.doi)
         assert myFullDoc.uri == self.full_doi_uri
 
@@ -305,22 +313,23 @@ class TestFullDoc:
     myFullDoc = FullDoc(uri=full_pii_uri)
 
     def test_read_good_bad_client(self):
-        """Test case: using a well-configured client leads to successful read
-        and using a badly-configured client does not."""
+        """Test case: using a well-configured client leads to successful read and using
+        a badly-configured client does not."""
         assert self.myFullDoc.read(self.bad_client) == False
         assert self.myFullDoc.read(self.good_client) == True
 
     def test_json_to_dict(self):
-        """Test case: the JSON read by the full article object from the
-        API is parsed into a Python dictionary"""
+        """Test case: the JSON read by the full article object from the API is parsed
+        into a Python dictionary."""
         assert type(self.myFullDoc.data) == dict
 
     def test_title_getter(self):
-        """Test case: the title attribute is returned as a non-empty string"""
+        """Test case: the title attribute is returned as a non-empty string."""
         assert type(self.myFullDoc.title) == str and self.myFullDoc.title != ""
 
     def test_write(self):
-        """Test case: the full article object's data is written to a file with the ID in the filename"""
+        """Test case: the full article object's data is written to a file with the ID in
+        the filename."""
         self.myFullDoc.write()
         ## TODO: replace following (strung-together replace) with regex
         assert util.file_exist_with_id(
@@ -332,7 +341,7 @@ class TestFullDoc:
 
 
 class TestSearch:
-    """Test search functionality"""
+    """Test search functionality."""
 
     ## Test data
     base_url = "https://api.elsevier.com/content/search/"
@@ -355,8 +364,7 @@ class TestSearch:
 
     ## Test initialization
     def test_init_uri(self):
-        """Test case: query, index and uri are set correctly during
-        initialization"""
+        """Test case: query, index and uri are set correctly during initialization."""
         match_all = True
         for i in range(len(self.search_types)):
             if (

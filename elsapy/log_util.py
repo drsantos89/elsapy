@@ -1,8 +1,9 @@
-"""A logging module for use with elsapy.
-    Additional resources:
-    * https://github.com/ElsevierDev/elsapy
-    * https://dev.elsevier.com
-    * https://api.elsevier.com"""
+"""A logging module for use with elsapy. Additional resources:
+
+* https://github.com/ElsevierDev/elsapy
+* https://dev.elsevier.com
+* https://api.elsevier.com
+"""
 
 import logging
 import time
