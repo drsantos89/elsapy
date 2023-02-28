@@ -140,7 +140,7 @@ class ElsSearch:
                         next_url = e["@href"]
                 api_response = els_client.exec_request(next_url)
                 self._results += api_response["search-results"]["entry"]
-                progress.update(1)
+                progress.update(count)
         progress.close()
 
         # convert to pandas dataframe

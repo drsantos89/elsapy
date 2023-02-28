@@ -8,4 +8,4 @@ researchers). Additional resources:
 * https://api.elsevier.com
 """
 
-version = "0.5.2"
+version = "0.5.3"
