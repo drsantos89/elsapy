@@ -13,7 +13,6 @@ import tqdm
 
 from . import log_util
 from .elsclient import ElsClient
-from .utils import recast_df
 
 logger = log_util.get_logger(__name__)
 
@@ -143,9 +142,6 @@ class ElsSearch:
                 progress.update(count)
             progress.update(self.num_res - progress.n)
         progress.close()
-
-        # convert to pandas dataframe
-        self.results_df = recast_df(pd.DataFrame(self._results))
 
     def hasAllResults(self) -> bool:
         """Return true if the search object has retrieved all results for the querys."""

@@ -1,3 +1,14 @@
+# elasapy - personal fork of elsapy
+Fixes some issues with elsapy and adds some features.
+- add support for count in search (speeds up search for large result sets)
+- add progress bar for search
+- removed force dict to dataframe conversion in search
+- load API key from environment variable (or .env file)
+- removed forced debug logging level
+- added pre-commit hooks and CI
+
+
+# Original readme
 # elsapy
 
 A Python module for use with api.elsevier.com. Its aim is to make life easier for people who are not primarily programmers, but need to interact with publication and citation data from Elsevier products in a programmatic manner (e.g. academic researchers). The module consists of the following classes:
