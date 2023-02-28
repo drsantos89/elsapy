@@ -23,7 +23,6 @@ def get_logger(name):
 
     # create logger with module name
     logger = logging.getLogger(name)
-    logger.setLevel(logging.DEBUG)
     # create log path, if not already there
     logPath = Path("logs")
     if not logPath.exists():
