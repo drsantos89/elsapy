@@ -1,8 +1,8 @@
 # elasapy - personal fork of elsapy
 Fixes some issues with elsapy and adds some features.
-- add support for count in search (speeds up search for large result sets)
-- add progress bar for search
-- removed force dict to dataframe conversion in search
+- added support for count in search (speeds up search for large result sets)
+- added progress bar for search
+- removed forced dict to dataframe conversion in search
 - load API key from environment variable (or .env file)
 - removed forced debug logging level
 - added pre-commit hooks and CI
